@@ -108,7 +108,7 @@ config = Config()
 
 class SINRAna:
     eps = 1e-7
-    '''SINR Analysis for the DBP System '''
+    '''SINR analysis for the DBP system '''
     def __init__(self, config: Config) -> None:
         self.config = config
         self.N = config.N
@@ -150,7 +150,7 @@ class SINRAna:
             self.Zs.append(Z)
 
     def init_Mats(self):
-        '''Initialization of the matrices that listed in the paper. The variables that are without index (for example, self.T, self.Phi) corresponds to the correlation related to user 0 (i.e., T_0, \Phi_0)'''
+        '''Initialization of the matrices that are listed in the paper. The variables that are without index (for example, self.T, self.Phi) correspond to the correlation related to user 0 (i.e., T_0, \Phi_0)'''
         self.Phis = []
         self.Ts = []
         self.Vs = []
@@ -303,10 +303,10 @@ class SINRAna:
     def get_Tilde_h(self, CG_Vec):
         return self.VPhi_sq @ CG_Vec
 
-    ################## Monte Carlo (MC) SINR code ###############
-    ###### The map of function names -> fucions schemes are: opt -> LFOC, n_opt -> LFSC, constant -> LFCC
-    ###### The function names with '_' at the end represnet one trails for MC 
-    ###### The function names with 'list' at the end reprenst the whole MC list without average
+    ################## Monte-Carlo (MC) SINR code ###############
+    ###### The map of function names -> futions schemes : opt -> LFOC, n_opt -> LFSC, constant -> LFCC
+    ###### The function names with '_' at the end represent one trail for MC 
+    ###### The function names with 'list' at the end represent the whole MC list without average
     
     def get_MC_SINR_opt_(self):
         Hat_H, Hat_h, Tilde_H, Tilde_h = self.get_H_h_realization()
@@ -331,7 +331,7 @@ class SINRAna:
         return (Wg_v.conj().T @ np.linalg.inv(G_Delta) @ Wg_v).real
 
     def get_MC_SINR_opt(self, T=100):
-        ''' T: number of trails for Monte-Carlo'''
+        ''' T: number of trials for Monte-Carlo'''
         sinr_opt = 0
         for t in range(T):
             sinr_opt += self.get_MC_SINR_opt_()
@@ -432,7 +432,7 @@ class SINRAna:
 
         return sinr_cons_ls
 
-    ################## Determonistc Equivalent (DE) SINR code ##################
+    ################## Deterministic Equivalent (DE) SINR code ##################
     ############################################################################
 
     def get_DE_sinr_opt(self):
@@ -479,7 +479,7 @@ class DECal:
             self.delta_old = self.delta.copy()
 
 class DEAllCal:
-    ''' Calculate the deterministic equivalents listed in Lemma 3 and table III'''
+    ''' Calculate the deterministic equivalents listed in Lemma 3 and Table III'''
     def __init__(self, N, M, K, Ns, sigma2, wsigma2, zs, Zs, As, Bs) -> None:
         self.N = N
         self.M = M
@@ -628,3 +628,4 @@ class DEAllCal:
         ones_M = np.ones([self.M, 1])
         Wlamda = self.get_Wlambda_kl(k, l, AA)
         return (Wlamda @ self.WFs[k] @ self.WFs[l] @ self.Xis[k][l] @ ones_M)[0, 0]
+
